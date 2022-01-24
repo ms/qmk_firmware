@@ -25,7 +25,6 @@ enum layers {
     BASE,  // default layer
     SYMB,  // symbols
     MOVE,  // movement
-    MDIA,  // media keys
     UNICODE,
 };
 
@@ -74,6 +73,7 @@ enum unicode_names {
     UARROW,
     DARROW,
     TSPACE,
+    NNBSPACE,
     HSPACE,
     EMDASH,
     ENDASH,
@@ -115,7 +115,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [LSQUOTE] = 0x2018,
     [LQUOTE_FR] = 0x00AB,
     [RQUOTE] = 0x201D,
-    [RSQUOTE] = 0x2018,
+    [RSQUOTE] = 0x2019,
     [RQUOTE_FR] = 0x00BB,
     [PRIME] = 0x2032,
     [DPRIME] = 0x2033,
@@ -129,6 +129,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [RDARROW] = 0x21D2,
     [DARROW] = 0x2193,
     [TSPACE] = 0x2009,
+    [NNBSPACE] = 0x202F,
     [HSPACE] = 0x200A,
     [EMDASH] = 0x2014,
     [ENDASH] = 0x2013,
@@ -145,12 +146,12 @@ const uint32_t PROGMEM unicode_map[] = {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_moonlander(
-        KC_ESC,         KC_1,    KC_2,    KC_3,    KC_4,       KC_5,    KC_NO,                          XP(PRIME,DPRIME),                KC_6,     KC_7,     KC_8,      KC_9,    KC_0,      KC_NO,
+        KC_ESC,         KC_1,    KC_2,    KC_3,    KC_4,       KC_5,    KC_NO,                          XP(PRIME,DPRIME),     KC_6,     KC_7,     KC_8,      KC_9,    KC_0,      KC_NO,
         KC_LGUI,        KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,    X(LSQUOTE),                     X(RSQUOTE),           KC_Y,     KC_U,     KC_I,      KC_O,    KC_P,      KC_GRV,
         KC_LCTL,        KC_A,    KC_S,    KC_D,    KC_F,       KC_G,    XP(LQUOTE,LQUOTE_FR),           XP(RQUOTE,RQUOTE_FR), KC_H,     KC_J,     KC_K,      KC_L,    KC_SCLN,   KC_QUOT,
         KC_LALT,        KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,                                                          KC_N,     KC_M,     KC_COMM,   KC_DOT,  KC_SLSH,   KC_MINUS,
-        KC_NO,          UC_MOD,  KC_NO,   KC_NO,   MO(UNICODE),   KC_ESC,                                                 KC_ENTER,     MO(SYMB), MO(MOVE),  KC_NO,   KC_NO,     KC_NO,
-                                            KC_SPC,  KC_BSPC, KC_TAB,             KC_NO,    KC_ESC,   KC_LSFT
+        KC_NO,          UC_MOD,  KC_NO,   KC_NO,   MO(UNICODE),   KC_TAB,                                                 KC_ENTER,     MO(SYMB), MO(MOVE),  KC_NO,   KC_NO,     KC_NO,
+                                          KC_LSFT,  KC_BSPC, KC_BSPC,                                                          KC_NO,    KC_ESC,   KC_SPC
     ),
 
     [SYMB] = LAYOUT_moonlander(
@@ -163,10 +164,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [MOVE] = LAYOUT_moonlander(
-        _______,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   _______,           _______, KC_NO,   KC_NO,    KC_NO,    KC_NO,     KC_NO,   KC_NO,
-        _______,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  _______,            _______, KC_END,  KC_PGDN,  KC_PGUP,  KC_HOME,   KC_NO,   KC_NO,
-        _______,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  _______,            _______, KC_LEFT, KC_DOWN,  KC_UP,    KC_RIGHT,  KC_NO,   KC_NO,
-        _______,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                               KC_NO,   KC_NO,    KC_NO,    KC_NO,     KC_NO,   KC_NO,
+        _______,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   _______,           _______, KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_NO,   KC_NO,
+        _______,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  _______,            _______, KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,    KC_NO,   KC_NO,
+        _______,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  _______,            _______, KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  KC_NO,   KC_NO,
+        _______,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                               KC_NO,    KC_NO,    KC_NO,    KC_NO,     KC_NO,   KC_NO,
         _______,    _______, _______, _______, _______, _______,                             _______, _______,  _______,  _______,   _______, KC_NO,
                                                _______, _______,_______,              _______,_______, _______
     ),
@@ -174,23 +175,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [UNICODE] = LAYOUT_moonlander(
         _______, _______, _______,   _______, _______, _______, _______,             _______,  _______,           _______,               _______,               _______,               _______, _______,
         _______, X(MUL),    XP(LARROW,LDARROW), X(UARROW), X(DARROW), XP(RARROW,RDARROW), _______,      _______, XP(OHAT,OHAT_CAP), XP(IHAT,IHAT_CAP),     XP(UHAT, UHAT_CAP),    XP(AHAT,AHAT_CAP),     X(ELLIP), _______,
-        _______, X(NEQ),    X(EMDASH), X(TSPACE), X(HSPACE), X(ENDASH), _______,      _______, XP(EHAT,EHAT_CAP), XP(EACUTE,EACUTE_CAP), XP(EGRAVE,EGRAVE_CAP), XP(AGRAVE,AGRAVE_CAP), XP(UACUTE,UACUTE_CAP), _______,
+        _______, X(NEQ),    X(EMDASH), XP(NNBSPACE,TSPACE), X(HSPACE), X(ENDASH), _______,      _______, XP(EHAT,EHAT_CAP), XP(EACUTE,EACUTE_CAP), XP(EGRAVE,EGRAVE_CAP), XP(AGRAVE,AGRAVE_CAP), XP(UACUTE,UACUTE_CAP), _______,
         _______, X(APPROX), X(ONEC),   X(TWOC),   X(THREEC), X(FOURC),                         _______,           XP(LQUOTE,LQUOTE_FR),  XP(RQUOTE,RQUOTE_FR),  XP(CCED,CCED_CAP) ,    XP(OELIG,OELIG_CAP), _______,
         _______, _______, _______,  _______, _______,         _______,            _______,          _______,  _______, _______, _______, _______,
                                             _______, _______, _______,           _______, _______, _______
   ),
-    /*
-
-
-    [MDIA] = LAYOUT_moonlander(
-        LED_LEVEL,_______,_______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, RESET,
-        _______, _______, _______, KC_MS_U, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,           _______, _______, _______, _______, _______, _______, KC_MPLY,
-        _______, _______, _______, _______, _______, _______,                             _______, _______, KC_MPRV, KC_MNXT, _______, _______,
-        _______, _______, _______, KC_BTN1, KC_BTN2,         _______,            _______,          KC_VOLU, KC_VOLD, KC_MUTE, _______, _______,
-                                            _______, _______, _______,           _______, _______, _______
-    ),
-    */
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
