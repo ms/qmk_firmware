@@ -45,8 +45,12 @@ enum unicode_names {
     AHAT_CAP,
     IHAT,
     IHAT_CAP,
+    IDIA,
+    IDIA_CAP,
     UHAT,
     UHAT_CAP,
+    UDIA,
+    UDIA_CAP,
     UACUTE,
     UACUTE_CAP,
     OHAT,
@@ -85,6 +89,12 @@ enum unicode_names {
     TWOC,
     THREEC,
     FOURC,
+    FIVEC,
+    SIXC,
+    SEVENC,
+    EIGHTC,
+    NINEC,
+    TENC,
 
 };
 
@@ -101,8 +111,12 @@ const uint32_t PROGMEM unicode_map[] = {
     [AHAT_CAP] = 0x00C2,
     [IHAT] = 0x00EE,
     [IHAT_CAP] = 0x00CE,
+    [IDIA] = 0x00EF,
+    [IDIA_CAP] = 0x00CF,
     [UHAT] = 0x00FB,
     [UHAT_CAP] = 0x00DB,
+    [UDIA] = 0x00FC,
+    [UDIA_CAP] = 0x00DC,
     [UACUTE] = 0x00F9,
     [UACUTE_CAP] = 0x00D9,
     [OHAT] = 0x00F4,
@@ -141,14 +155,21 @@ const uint32_t PROGMEM unicode_map[] = {
     [TWOC] = 0x2461,
     [THREEC] = 0x2462,
     [FOURC] = 0x2463,
+    [FIVEC] = 0x2464,
+    [SIXC] = 0x2465,
+    [SEVENC] = 0x2466,
+    [EIGHTC] = 0x2467,
+    [NINEC] = 0x2468,
+    [TENC] = 0x2469,
+
 };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_moonlander(
-        KC_ESC,         KC_1,    KC_2,    KC_3,    KC_4,       KC_5,    KC_NO,                          XP(PRIME,DPRIME),     KC_6,     KC_7,     KC_8,      KC_9,    KC_0,      KC_NO,
-        KC_LGUI,        KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,    X(LSQUOTE),                     X(RSQUOTE),           KC_Y,     KC_U,     KC_I,      KC_O,    KC_P,      KC_GRV,
-        KC_LCTL,        KC_A,    KC_S,    KC_D,    KC_F,       KC_G,    XP(LQUOTE,LQUOTE_FR),           XP(RQUOTE,RQUOTE_FR), KC_H,     KC_J,     KC_K,      KC_L,    KC_SCLN,   KC_QUOT,
+        KC_ESC,         KC_1,    KC_2,    KC_3,    KC_4,       KC_5,    KC_NO,                          KC_NO,     KC_6,     KC_7,     KC_8,      KC_9,    KC_0,      KC_NO,
+        KC_LGUI,        KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,    KC_NO,                     KC_NO,           KC_Y,     KC_U,     KC_I,      KC_O,    KC_P,      KC_GRV,
+        KC_LCTL,        KC_A,    KC_S,    KC_D,    KC_F,       KC_G,    KC_NO,           KC_NO, KC_H,     KC_J,     KC_K,      KC_L,    KC_SCLN,   KC_QUOT,
         KC_LALT,        KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,                                                          KC_N,     KC_M,     KC_COMM,   KC_DOT,  KC_SLSH,   KC_MINUS,
         KC_NO,          UC_MOD,  KC_NO,   KC_NO,   MO(UNICODE),   KC_TAB,                                                 KC_ENTER,     MO(SYMB), MO(MOVE),  KC_NO,   KC_NO,     KC_NO,
                                           KC_LSFT,  KC_BSPC, KC_BSPC,                                                          KC_NO,    KC_ESC,   KC_SPC
@@ -173,10 +194,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [UNICODE] = LAYOUT_moonlander(
-        _______, _______, _______,   _______, _______, _______, _______,             _______,  _______,           _______,               _______,               _______,               _______, _______,
-        _______, X(MUL),    XP(LARROW,LDARROW), X(UARROW), X(DARROW), XP(RARROW,RDARROW), _______,      _______, XP(OHAT,OHAT_CAP), XP(IHAT,IHAT_CAP),     XP(UHAT, UHAT_CAP),    XP(AHAT,AHAT_CAP),     X(ELLIP), _______,
-        _______, X(NEQ),    X(EMDASH), XP(NNBSPACE,TSPACE), X(HSPACE), X(ENDASH), _______,      _______, XP(EHAT,EHAT_CAP), XP(EACUTE,EACUTE_CAP), XP(EGRAVE,EGRAVE_CAP), XP(AGRAVE,AGRAVE_CAP), XP(UACUTE,UACUTE_CAP), _______,
-        _______, X(APPROX), X(ONEC),   X(TWOC),   X(THREEC), X(FOURC),                         _______,           XP(LQUOTE,LQUOTE_FR),  XP(RQUOTE,RQUOTE_FR),  XP(CCED,CCED_CAP) ,    XP(OELIG,OELIG_CAP), _______,
+        _______, X(ONEC),   X(TWOC),            X(THREEC),           X(FOURC),             X(FIVEC),           _______,      _______, X(SIXC),           X(SEVENC),             X(EIGHTC),             X(NINEC),              X(TENC),               _______,
+        _______, X(MUL),    XP(LARROW,LDARROW), X(UARROW),           X(DARROW),            XP(RARROW,RDARROW), _______,      _______, XP(OHAT,OHAT_CAP), XP(IHAT,IHAT_CAP),     XP(UHAT, UHAT_CAP),    XP(AHAT,AHAT_CAP),     X(ELLIP),              XP(PRIME,DPRIME),
+        _______, X(NEQ),    X(EMDASH),          XP(NNBSPACE,TSPACE), X(HSPACE),            X(ENDASH),          _______,      _______, XP(EHAT,EHAT_CAP), XP(EACUTE,EACUTE_CAP), XP(EGRAVE,EGRAVE_CAP), XP(AGRAVE,AGRAVE_CAP), XP(UACUTE,UACUTE_CAP), XP(RSQUOTE, LSQUOTE),
+        _______, X(APPROX), KC_NO,              XP(LQUOTE,LQUOTE_FR),XP(RQUOTE, RQUOTE_FR),_______,                                  _______,           XP(IDIA,IDIA_CAP),     XP(UDIA,UDIA_CAP),     XP(CCED,CCED_CAP),     XP(OELIG,OELIG_CAP),   _______,
         _______, _______, _______,  _______, _______,         _______,            _______,          _______,  _______, _______, _______, _______,
                                             _______, _______, _______,           _______, _______, _______
   ),
